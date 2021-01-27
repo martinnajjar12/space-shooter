@@ -1,10 +1,10 @@
-import name from './scripts/test';
+import 'phaser';
+import simpleScene from './scenes/simpleScene';
 
-name();
-const messageEl = document.createElement('div');
-messageEl.textContent = "I've been changed";
-document.body.appendChild(messageEl);
+const gameConfig = {
+  width: 680,
+  height: 400,
+  scene: simpleScene,
+};
 
-const newMessage = document.createElement('div');
-newMessage.textContent = "I'm a new message";
-document.body.appendChild(newMessage);
+new Phaser.Game(gameConfig);
