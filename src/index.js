@@ -2,8 +2,9 @@ import 'phaser';
 import SceneMainMenu from './scenes/SceneMainMenu';
 import SceneMain from './scenes/SceneMain';
 import SceneGameOver from './scenes/SceneGameOver';
+import Entity from './entities/Entity';
 
-const gameConfig = {
+const config = {
   type: Phaser.AUTO,
   width: 480,
   height: 640,
@@ -18,4 +19,4 @@ const gameConfig = {
   roundPixels: true,
 };
 
-new Phaser.Game(gameConfig);
+new Phaser.Game(config);
