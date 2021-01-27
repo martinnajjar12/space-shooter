@@ -1,0 +1,32 @@
+{
+  "name": "space-shooter",
+  "version": "1.0.0",
+  "description": "A web game using Phaser 3 and JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martinnajjar12/space-shooter.git"
+  },
+  "author": "Martin Najjar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/martinnajjar12/space-shooter/issues"
+  },
+  "homepage": "https://github.com/martinnajjar12/space-shooter#readme",
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "babel": "^6.23.0",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.2",
+    "eslint": "^7.18.0",
+    "webpack": "^5.18.0",
+    "webpack-cli": "^4.4.0"
+  },
+  "dependencies": {
+    "phaser": "^3.52.0"
+  }
+}
