@@ -1,10 +1,21 @@
 import 'phaser';
-import simpleScene from './scenes/simpleScene';
+import SceneMainMenu from './scenes/SceneMainMenu';
+import SceneMain from './scenes/SceneMain';
+import SceneGameOver from './scenes/SceneGameOver';
 
 const gameConfig = {
-  width: 680,
-  height: 400,
-  scene: simpleScene,
+  type: Phaser.AUTO,
+  width: 480,
+  height: 640,
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: { x: 0, y: 0 },
+    },
+  },
+  scene: [SceneMainMenu, SceneMain, SceneGameOver],
+  pixelArt: true,
+  roundPixels: true,
 };
 
 new Phaser.Game(gameConfig);
