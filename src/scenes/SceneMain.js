@@ -109,7 +109,8 @@ export default class SceneMain extends Phaser.Scene {
             enemy.onDestroy();
           }
 
-          enemy.explode(true);
+          enemy.disableBody(true, true);
+          // enemy.explode(true);
           playerLaser.destroy();
         }
       },

@@ -1,7 +1,7 @@
 import ScrollingBackground from '../background/ScrollingBackground';
 import SceneMain from '../scenes/SceneMain';
 
-export default class Entity extends Phaser.GameObjects.Sprite {
+export default class Entity extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, key, type) {
     super(scene, x, y, key, type);
     this.scene = scene;
