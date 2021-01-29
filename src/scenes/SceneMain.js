@@ -1,5 +1,6 @@
 import Player from '../entities/Player';
 import GunShip from '../entities/GunShip';
+import ScrollingBackground from '../background/ScrollingBackground';
 
 export default class SceneMain extends Phaser.Scene {
   constructor() {
@@ -19,18 +20,33 @@ export default class SceneMain extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(250, 300, 'background').setScale(3);
-    this.add.image(400, 150, 'enemy');
-    this.add.image(400, 200, 'laser');
-    this.add.image(200, 200, 'myLaser');
-    this.add.image(100, 200, 'playerDamaged');
-    this.physics.add.sprite(100, 450, 'ship');
+    // this.add.image(250, 300, 'background').setScale(3);
     this.anims.create({
-      key: 'ship',
-      frames: this.anims.generateFrameNumbers('ship'),
-      frameRate: 20,
-      repeat: -1,
+      key: 'left',
+      frames: [{ key: 'ship', frame: 0 }],
+      frameRate: 10,
+      repeat: 0,
     });
+
+    this.anims.create({
+      key: 'turn',
+      frames: [{ key: 'ship', frame: 1 }],
+      frameRate: 20,
+    });
+
+    this.anims.create({
+      key: 'right',
+      frames: [{ key: 'ship', frame: 2 }],
+      frameRate: 10,
+      repeat: 0,
+    });
+
+    this.backgrounds = [];
+    for (let i = 0; i < 5; i++) {
+      // create five scrolling backgrounds
+      const bg = new ScrollingBackground(this, 'background', i * 10);
+      this.backgrounds.push(bg);
+    }
 
     this.cursors = this.input.keyboard.createCursorKeys();
     this.keySpace = this.input.keyboard.addKey(
@@ -127,15 +143,26 @@ export default class SceneMain extends Phaser.Scene {
 
     if (!this.player.getData('isDead')) {
       this.player.update();
+
+      if (this.cursors.right.isUp) {
+        this.player.anims.play('turn', true);
+      } else if (this.cursors.left.isUp) {
+        this.player.anims.play('turn', true);
+      }
+
       if (this.cursors.up.isDown) {
         this.player.moveUp();
+        this.player.anims.play('turn', true);
       } else if (this.cursors.down.isDown) {
         this.player.moveDown();
+        this.player.anims.play('turn', true);
       }
       if (this.cursors.left.isDown) {
         this.player.moveLeft();
+        this.player.anims.play('left', true);
       } else if (this.cursors.right.isDown) {
         this.player.moveRight();
+        this.player.anims.play('right', true);
       }
 
       if (this.keySpace.isDown) {
