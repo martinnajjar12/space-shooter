@@ -92,7 +92,6 @@ export default class SceneMain extends Phaser.Scene {
         // }
 
         if (enemy !== null) {
-          enemy.setScale(Phaser.Math.Between(10, 20) * 0.1);
           this.enemies.add(enemy);
         }
       },
