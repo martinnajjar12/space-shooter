@@ -1,6 +1,5 @@
 import Player from '../entities/Player';
-
-// let cursors;
+import GunShip from '../entities/GunShip';
 
 export default class SceneMain extends Phaser.Scene {
   constructor() {
@@ -38,6 +37,24 @@ export default class SceneMain extends Phaser.Scene {
       Phaser.Input.Keyboard.KeyCodes.SPACE,
     );
 
+    this.enemies = this.add.group();
+    this.enemyLasers = this.add.group();
+    this.playerLasers = this.add.group();
+
+    this.time.addEvent({
+      delay: 3000,
+      callback: function () {
+        var enemy = new GunShip(
+          this,
+          Phaser.Math.Between(0, this.game.config.width),
+          0,
+        );
+        this.enemies.add(enemy);
+      },
+      callbackScope: this,
+      loop: true,
+    });
+
     this.player = new Player(
       this,
       this.game.config.width * 0.5,
@@ -59,6 +76,16 @@ export default class SceneMain extends Phaser.Scene {
       this.player.moveLeft();
     } else if (this.cursors.right.isDown) {
       this.player.moveRight();
+    }
+
+    if (this.keySpace.isDown) {
+      this.player.setData('isShooting', true);
+    } else {
+      this.player.setData(
+        'timerShootTick',
+        this.player.getData('timerShootDelay') - 1,
+      );
+      this.player.setData('isShooting', false);
     }
   }
 }
