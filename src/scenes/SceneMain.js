@@ -108,11 +108,12 @@ export default class SceneMain extends Phaser.Scene {
       loop: true,
     });
 
-    this.physics.add.collider(
+    this.physics.add.overlap(
       this.playerLasers,
       this.enemies,
       function (playerLaser, enemy) {
-        if (enemy) {
+        const enemyKey = enemy.body.gameObject.texture.key;
+        if (enemyKey == 'enemy' || enemyKey == 'chaserEnemy') {
           if (enemy.onDestroy !== undefined) {
             enemy.onDestroy();
           }
@@ -120,6 +121,17 @@ export default class SceneMain extends Phaser.Scene {
           enemy.disableBody(true, true);
           // enemy.explode(true);
           playerLaser.destroy();
+        } else {
+          enemy.health -= 1;
+          playerLaser.destroy();
+          if (enemy.health === 0) {
+            if (enemy.onDestroy !== undefined) {
+              enemy.onDestroy();
+            }
+
+            enemy.disableBody(true, true);
+            // enemy.explode(true);
+          }
         }
       },
     );

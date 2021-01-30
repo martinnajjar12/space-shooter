@@ -4,9 +4,10 @@ import EnemyLaser from './EnemyLaser';
 export default class GreenShip extends Entity {
   constructor(scene, x, y) {
     super(scene, x, y, 'lastEnemy', 'CarrierShip');
+    this.health = 2;
     this.body.velocity.y = Phaser.Math.Between(50, 100);
     this.shootTimer = this.scene.time.addEvent({
-      delay: 3000,
+      delay: 1000,
       callback: function () {
         const laser = new EnemyLaser(this.scene, this.x, this.y, 'greenLaser');
         laser.setScale(this.scaleX);
