@@ -1,6 +1,7 @@
 import Player from '../entities/Player';
 import GunShip from '../entities/GunShip';
 import ChaserShip from '../entities/ChaserShip';
+import GreenShip from '../entities/GreenShip';
 import ScrollingBackground from '../background/ScrollingBackground';
 
 export default class SceneMain extends Phaser.Scene {
@@ -10,9 +11,11 @@ export default class SceneMain extends Phaser.Scene {
 
   preload() {
     this.load.image('bg', 'newBg.png');
-    this.load.image('enemy', 'enemyBlack2.png');
+    this.load.image('enemy', 'enemyBlue2.png');
     this.load.image('chaserEnemy', 'ufoGreen.png');
-    this.load.image('laser', 'laserGreen05.png');
+    this.load.image('lastEnemy', 'enemyGreen5.png');
+    this.load.image('blueLaser', 'laserBlue05.png');
+    this.load.image('greenLaser', 'laserGreen03.png');
     this.load.image('myLaser', 'laserRed01.png');
     this.load.image('playerDamaged', 'playerDamaged.png');
     this.load.spritesheet('ship', 'ship_spritesheet.png', {
@@ -75,13 +78,13 @@ export default class SceneMain extends Phaser.Scene {
       callback: function () {
         let enemy = null;
 
-        if (Phaser.Math.Between(0, 5) <= 3) {
+        if (Phaser.Math.Between(0, 10) < 5) {
           enemy = new GunShip(
             this,
             Phaser.Math.Between(0, this.game.config.width),
             0,
           );
-        } else if (Phaser.Math.Between(0, 5) >= 5) {
+        } else if (Phaser.Math.Between(0, 10) <= 7) {
           if (this.getEnemiesByType('ChaserShip').length < 5) {
             enemy = new ChaserShip(
               this,
@@ -89,13 +92,13 @@ export default class SceneMain extends Phaser.Scene {
               0,
             );
           }
-        } //else {
-        //   enemy = new CarrierShip(
-        //     this,
-        //     Phaser.Math.Between(0, this.game.config.width),
-        //     0,
-        //   );
-        // }
+        } else {
+          enemy = new GreenShip(
+            this,
+            Phaser.Math.Between(0, this.game.config.width),
+            0,
+          );
+        }
 
         if (enemy !== null) {
           this.enemies.add(enemy);

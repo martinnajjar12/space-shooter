@@ -8,7 +8,7 @@ export default class GunShip extends Entity {
     this.shootTimer = this.scene.time.addEvent({
       delay: 3000,
       callback: function () {
-        const laser = new EnemyLaser(this.scene, this.x, this.y);
+        const laser = new EnemyLaser(this.scene, this.x, this.y, 'blueLaser');
         laser.setScale(this.scaleX);
         this.scene.enemyLasers.add(laser);
       },

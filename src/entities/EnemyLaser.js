@@ -1,8 +1,8 @@
 import Entity from './Entity';
 
 export default class EnemyLaser extends Entity {
-  constructor(scene, x, y) {
-    super(scene, x, y, 'laser');
+  constructor(scene, x, y, key) {
+    super(scene, x, y, key);
     this.body.velocity.y = 200;
   }
 }

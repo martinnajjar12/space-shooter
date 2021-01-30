@@ -4,7 +4,7 @@ export default class SceneMainMenu extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('background', '../../assets/darkPurple.png');
+    this.load.image('background', '../../assets/newBg.png');
   }
 
   create() {
