@@ -2,7 +2,7 @@ import Entity from './Entity';
 
 export default class ChaserShip extends Entity {
   constructor(scene, x, y) {
-    super(scene, x, y, 'sprEnemy1', 'ChaserShip');
+    super(scene, x, y, 'chaserEnemy', 'ChaserShip');
     this.states = {
       MOVE_DOWN: 'MOVE_DOWN',
       CHASE: 'CHASE',
@@ -18,9 +18,11 @@ export default class ChaserShip extends Entity {
           this.y,
           this.scene.player.x,
           this.scene.player.y,
-        ) < 320
+        ) < 200
       ) {
         this.state = this.states.CHASE;
+      } else {
+        this.state = this.states.MOVE_DOWN;
       }
 
       if (this.x < this.scene.player.x) {
@@ -30,13 +32,15 @@ export default class ChaserShip extends Entity {
       }
 
       if (this.state == this.states.CHASE) {
-        var dx = this.scene.player.x - this.x;
-        var dy = this.scene.player.y - this.y;
+        const dx = this.scene.player.x - this.x;
+        const dy = this.scene.player.y - this.y;
 
-        var angle = Math.atan2(dy, dx);
+        const angle = Math.atan2(dy, dx);
 
-        var speed = 100;
+        const speed = 100;
         this.body.setVelocity(Math.cos(angle) * speed, Math.sin(angle) * speed);
+      } else {
+        this.body.velocity.y = Phaser.Math.Between(50, 100);
       }
     }
   }

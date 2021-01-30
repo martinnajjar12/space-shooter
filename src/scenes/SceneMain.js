@@ -1,5 +1,6 @@
 import Player from '../entities/Player';
 import GunShip from '../entities/GunShip';
+import ChaserShip from '../entities/ChaserShip';
 import ScrollingBackground from '../background/ScrollingBackground';
 
 export default class SceneMain extends Phaser.Scene {
@@ -10,8 +11,9 @@ export default class SceneMain extends Phaser.Scene {
   preload() {
     this.load.image('bg', 'newBg.png');
     this.load.image('enemy', 'enemyBlack2.png');
-    this.load.image('laser', 'laserGreen03.png');
-    this.load.image('myLaser', 'laserRed03.png');
+    this.load.image('chaserEnemy', 'ufoGreen.png');
+    this.load.image('laser', 'laserGreen05.png');
+    this.load.image('myLaser', 'laserRed01.png');
     this.load.image('playerDamaged', 'playerDamaged.png');
     this.load.spritesheet('ship', 'ship_spritesheet.png', {
       frameWidth: 99,
@@ -69,26 +71,25 @@ export default class SceneMain extends Phaser.Scene {
     );
 
     this.time.addEvent({
-      delay: 3000,
+      delay: 1000,
       callback: function () {
         let enemy = null;
 
-        if (Phaser.Math.Between(0, 10) >= 3) {
+        if (Phaser.Math.Between(0, 5) <= 3) {
           enemy = new GunShip(
             this,
             Phaser.Math.Between(0, this.game.config.width),
             0,
           );
-        }
-        // else if (Phaser.Math.Between(0, 10) >= 5) {
-        //   if (this.getEnemiesByType('ChaserShip').length < 5) {
-        //     enemy = new ChaserShip(
-        //       this,
-        //       Phaser.Math.Between(0, this.game.config.width),
-        //       0,
-        //     );
-        //   }
-        // } else {
+        } else if (Phaser.Math.Between(0, 5) >= 5) {
+          if (this.getEnemiesByType('ChaserShip').length < 5) {
+            enemy = new ChaserShip(
+              this,
+              Phaser.Math.Between(0, this.game.config.width),
+              0,
+            );
+          }
+        } //else {
         //   enemy = new CarrierShip(
         //     this,
         //     Phaser.Math.Between(0, this.game.config.width),
