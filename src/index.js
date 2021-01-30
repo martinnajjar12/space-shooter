@@ -2,7 +2,6 @@ import 'phaser';
 import SceneMainMenu from './scenes/SceneMainMenu';
 import SceneMain from './scenes/SceneMain';
 import SceneGameOver from './scenes/SceneGameOver';
-import Entity from './entities/Entity';
 
 const config = {
   type: Phaser.AUTO,
