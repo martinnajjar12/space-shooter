@@ -142,10 +142,7 @@ export default class SceneMain extends Phaser.Scene {
           enemy.explode(true);
           explosionSound.play();
           sfx.stop();
-          setTimeout(() => {
-            // this.scene.start('SceneMain');
-            this.scene.start('SceneGameOver');
-          }, 1000);
+          this.scene.start('SceneGameOver');
         }
       }),
     );
