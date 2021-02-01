@@ -22,12 +22,12 @@ export default class SceneMain extends Phaser.Scene {
       frameWidth: 99,
       frameHeight: 70,
     });
-    this.load.audio('drums', 'drums.ogg');
+    this.load.audio('mars', 'Mars.wav');
     this.load.audio('explosion', 'explosion.mp3');
   }
 
   create() {
-    let sfx = this.sound.add('drums');
+    let sfx = this.sound.add('mars');
     let explosionSound = this.sound.add('explosion');
     sfx.play();
 
@@ -119,7 +119,6 @@ export default class SceneMain extends Phaser.Scene {
           }
 
           enemy.disableBody(true, true);
-          // enemy.explode(true);
           playerLaser.destroy();
         } else {
           enemy.health -= 1;
@@ -130,7 +129,6 @@ export default class SceneMain extends Phaser.Scene {
             }
 
             enemy.disableBody(true, true);
-            // enemy.explode(true);
           }
         }
       },
