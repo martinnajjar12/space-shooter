@@ -53,7 +53,6 @@ export default class SceneMain extends Phaser.Scene {
 
     this.backgrounds = [];
     for (let i = 0; i < 5; i++) {
-      // create five scrolling backgrounds
       const bg = new ScrollingBackground(this, 'bg', i * 10);
       this.backgrounds.push(bg);
     }
@@ -137,13 +136,18 @@ export default class SceneMain extends Phaser.Scene {
     this.physics.add.overlap(
       this.player,
       this.enemies,
-      function (player, enemy) {
+      (this.anony = (player, enemy) => {
         if (!player.getData('isDead') && !enemy.getData('isDead')) {
           player.explode(false);
           enemy.explode(true);
           explosionSound.play();
+          sfx.stop();
+          setTimeout(() => {
+            // this.scene.start('SceneMain');
+            this.scene.start('SceneGameOver');
+          }, 1000);
         }
-      },
+      }),
     );
 
     this.physics.add.overlap(

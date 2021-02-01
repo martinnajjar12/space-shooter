@@ -40,6 +40,7 @@ export default class SceneMainMenu extends Phaser.Scene {
         playBtnSound.play();
         setTimeout(() => {
           this.scene.start('SceneMain');
+          // this.scene.start('SceneGameOver');
         }, 2000);
       },
       this,
