@@ -1,4 +1,5 @@
 import ScrollingBackground from '../background/ScrollingBackground';
+// import PhaserInput from '@azerion/phaser-input';
 
 export default class SceneMainMenu extends Phaser.Scene {
   constructor() {
@@ -13,6 +14,8 @@ export default class SceneMainMenu extends Phaser.Scene {
   }
 
   create() {
+    // this.game.add.plugin(PhaserInput.Plugin);
+    this.game.input = 'Hello';
     const playBtnSound = this.sound.add('btnAudio');
     this.btnPlay = this.add.sprite(
       this.game.config.width * 0.5,

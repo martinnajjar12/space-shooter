@@ -4,10 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Space Shooter Game</title>
+    <style>
+      .textDiv {
+        position: absolute;
+        top: 300px;
+        left: 163px;
+      }
+
+      .textDiv label {
+        color: #fff;
+        font-size: large;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      }
+
+      .textDiv input {
+        display: block;
+        height: 25px;
+        border-radius: 3px;
+      }
+    </style>
   </head>
   <body>
     <h1>Space Shooter Game</h1>
-
+    <div class="textDiv">
+      <label for="username">Player Name</label>
+      <input type="text" name="username" id="utext" />
+    </div>
     <script src="app.bundle.js"></script>
   </body>
 </html>
