@@ -3,6 +3,8 @@ import GunShip from '../entities/GunShip';
 import ChaserShip from '../entities/ChaserShip';
 import GreenShip from '../entities/GreenShip';
 import ScrollingBackground from '../background/ScrollingBackground';
+const inputField = document.querySelector('#utext');
+const scoreDiv = document.querySelector('.scoreDiv');
 
 export default class SceneMain extends Phaser.Scene {
   constructor() {
@@ -70,6 +72,7 @@ export default class SceneMain extends Phaser.Scene {
       this.game.config.width * 0.5,
       this.game.config.height * 0.5,
       'ship',
+      inputField.value,
     );
 
     this.time.addEvent({
@@ -110,13 +113,14 @@ export default class SceneMain extends Phaser.Scene {
     this.physics.add.overlap(
       this.playerLasers,
       this.enemies,
-      function (playerLaser, enemy) {
+      (this.increasingScore = (playerLaser, enemy) => {
         const enemyKey = enemy.body.gameObject.texture.key;
         if (enemyKey == 'enemy' || enemyKey == 'chaserEnemy') {
           if (enemy.onDestroy !== undefined) {
             enemy.onDestroy();
           }
-
+          this.player.score += 5;
+          scoreDiv.innerHTML = `SCORE: ${this.player.score}`;
           enemy.disableBody(true, true);
           playerLaser.destroy();
         } else {
@@ -126,11 +130,12 @@ export default class SceneMain extends Phaser.Scene {
             if (enemy.onDestroy !== undefined) {
               enemy.onDestroy();
             }
-
+            this.player.score += 10;
+            scoreDiv.innerHTML = `SCORE: ${this.player.score}`;
             enemy.disableBody(true, true);
           }
         }
-      },
+      }),
     );
 
     this.physics.add.overlap(
@@ -142,7 +147,9 @@ export default class SceneMain extends Phaser.Scene {
           enemy.explode(true);
           explosionSound.play();
           sfx.stop();
-          this.scene.start('SceneGameOver');
+          setTimeout(() => {
+            this.scene.start('SceneGameOver');
+          }, 1000);
         }
       }),
     );
@@ -156,7 +163,9 @@ export default class SceneMain extends Phaser.Scene {
           laser.destroy();
           explosionSound.play();
           sfx.stop();
-          this.scene.start('SceneGameOver');
+          setTimeout(() => {
+            this.scene.start('SceneGameOver');
+          }, 1000);
         }
       }),
     );
