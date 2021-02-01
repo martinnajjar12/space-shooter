@@ -150,13 +150,15 @@ export default class SceneMain extends Phaser.Scene {
     this.physics.add.overlap(
       this.player,
       this.enemyLasers,
-      function (player, laser) {
+      (this.anotherAnony = (player, laser) => {
         if (!player.getData('isDead') && !laser.getData('isDead')) {
           player.explode(false);
           laser.destroy();
           explosionSound.play();
+          sfx.stop();
+          this.scene.start('SceneGameOver');
         }
-      },
+      }),
     );
   }
 
