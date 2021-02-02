@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "start": "webpack",
     "build": "webpack serve --entry ./src/index.js --output-filename ./dist/bundle.js",
     "watch": "webpack --watch"
   },
