@@ -1,15 +1,17 @@
-import Player from '../entities/Player';
-import GunShip from '../entities/GunShip';
+import Phaser from 'phaser';
 import ChaserShip from '../entities/ChaserShip';
 import GreenShip from '../entities/GreenShip';
+import GunShip from '../entities/GunShip';
+import Player from '../entities/Player';
 import ScrollingBackground from '../background/ScrollingBackground';
+
 const inputField = document.querySelector('#utext');
 const scoreDiv = document.querySelector('.scoreDiv');
 const url = `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${process.env.GAMEID}/scores`;
 
 const setScore = async (name, score) => {
   const params = { user: name, score };
-  const res = await fetch(url, {
+  await fetch(url, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -17,7 +19,6 @@ const setScore = async (name, score) => {
     },
     body: JSON.stringify(params),
   });
-  const data = await res.json();
 };
 
 export default class SceneMain extends Phaser.Scene {
@@ -33,7 +34,6 @@ export default class SceneMain extends Phaser.Scene {
     this.load.image('blueLaser', 'laserBlue05.png');
     this.load.image('greenLaser', 'laserGreen03.png');
     this.load.image('myLaser', 'laserRed01.png');
-    this.load.image('playerDamaged', 'playerDamaged.png');
     this.load.spritesheet('ship', 'ship_spritesheet.png', {
       frameWidth: 99,
       frameHeight: 70,
@@ -43,8 +43,8 @@ export default class SceneMain extends Phaser.Scene {
   }
 
   create() {
-    let sfx = this.sound.add('mars');
-    let explosionSound = this.sound.add('explosion');
+    const sfx = this.sound.add('mars');
+    const explosionSound = this.sound.add('explosion');
     sfx.loop = true;
     sfx.play();
 
@@ -69,7 +69,7 @@ export default class SceneMain extends Phaser.Scene {
     });
 
     this.backgrounds = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 5; i += 1) {
       const bg = new ScrollingBackground(this, 'bg', i * 10);
       this.backgrounds.push(bg);
     }
@@ -92,7 +92,7 @@ export default class SceneMain extends Phaser.Scene {
 
     this.time.addEvent({
       delay: 1000,
-      callback: function () {
+      callback() {
         let enemy = null;
 
         if (Phaser.Math.Between(0, 10) < 5) {
@@ -130,7 +130,7 @@ export default class SceneMain extends Phaser.Scene {
       this.enemies,
       (this.increasingScore = (playerLaser, enemy) => {
         const enemyKey = enemy.body.gameObject.texture.key;
-        if (enemyKey == 'enemy' || enemyKey == 'chaserEnemy') {
+        if (enemyKey === 'enemy' || enemyKey === 'chaserEnemy') {
           if (enemy.onDestroy !== undefined) {
             enemy.onDestroy();
           }
@@ -226,13 +226,13 @@ export default class SceneMain extends Phaser.Scene {
       }
     }
 
-    for (let enemy of this.enemies.getChildren()) {
+    this.enemies.getChildren().forEach(enemy => {
       enemy.update();
       if (
-        enemy.x < -enemy.displayWidth ||
-        enemy.x > this.game.config.width + enemy.displayWidth ||
-        enemy.y < -enemy.displayHeight * 4 ||
-        enemy.y > this.game.config.height + enemy.displayHeight
+        enemy.x < -enemy.displayWidth
+        || enemy.x > this.game.config.width + enemy.displayWidth
+        || enemy.y < -enemy.displayHeight * 4
+        || enemy.y > this.game.config.height + enemy.displayHeight
       ) {
         if (enemy) {
           if (enemy.onDestroy !== undefined) {
@@ -242,35 +242,35 @@ export default class SceneMain extends Phaser.Scene {
           enemy.destroy();
         }
       }
-    }
+    });
 
-    for (let laser of this.enemyLasers.getChildren()) {
+    this.enemyLasers.getChildren().forEach(laser => {
       laser.update();
       if (
-        laser.x < -laser.displayWidth ||
-        laser.x > this.game.config.width + laser.displayWidth ||
-        laser.y < -laser.displayHeight * 4 ||
-        laser.y > this.game.config.height + laser.displayHeight
+        laser.x < -laser.displayWidth
+        || laser.x > this.game.config.width + laser.displayWidth
+        || laser.y < -laser.displayHeight * 4
+        || laser.y > this.game.config.height + laser.displayHeight
       ) {
         if (laser) {
           laser.destroy();
         }
       }
-    }
+    });
 
-    for (let laser of this.playerLasers.getChildren()) {
+    this.playerLasers.getChildren().forEach(laser => {
       laser.update();
       if (
-        laser.x < -laser.displayWidth ||
-        laser.x > this.game.config.width + laser.displayWidth ||
-        laser.y < -laser.displayHeight * 4 ||
-        laser.y > this.game.config.height + laser.displayHeight
+        laser.x < -laser.displayWidth
+        || laser.x > this.game.config.width + laser.displayWidth
+        || laser.y < -laser.displayHeight * 4
+        || laser.y > this.game.config.height + laser.displayHeight
       ) {
         if (laser) {
           laser.destroy();
         }
       }
-    }
+    });
 
     this.backgrounds.forEach(bg => bg.update());
   }
@@ -278,7 +278,7 @@ export default class SceneMain extends Phaser.Scene {
   getEnemiesByType(type) {
     const enemiesArray = this.enemies
       .getChildren()
-      .filter(enemy => enemy.getData('type') == type);
+      .filter(enemy => enemy.getData('type') === type);
     return enemiesArray;
   }
 }

@@ -1,5 +1,4 @@
-import ScrollingBackground from '../background/ScrollingBackground';
-import SceneMain from '../scenes/SceneMain';
+import Phaser from 'phaser';
 
 export default class Entity extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, key, type) {
@@ -24,7 +23,7 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
 
       this.on(
         'animationcomplete',
-        function () {
+        this.anonymous = () => {
           if (canDestroy) {
             this.destroy();
           } else {

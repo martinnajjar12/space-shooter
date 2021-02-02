@@ -1,3 +1,4 @@
+import Phaser from 'phaser';
 import Entity from './Entity';
 import EnemyLaser from './EnemyLaser';
 
@@ -7,7 +8,7 @@ export default class GunShip extends Entity {
     this.body.velocity.y = Phaser.Math.Between(50, 100);
     this.shootTimer = this.scene.time.addEvent({
       delay: 3000,
-      callback: function () {
+      callback() {
         const laser = new EnemyLaser(this.scene, this.x, this.y, 'blueLaser');
         laser.setScale(this.scaleX);
         this.scene.enemyLasers.add(laser);
@@ -17,6 +18,7 @@ export default class GunShip extends Entity {
     });
     this.play('enemy');
   }
+
   onDestroy() {
     if (this.shootTimer !== undefined) {
       if (this.shootTimer) {

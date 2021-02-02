@@ -1,4 +1,6 @@
+import Phaser from 'phaser';
 import ScrollingBackground from '../background/ScrollingBackground';
+
 const myDiv = document.querySelector('.textDiv');
 
 export default class SceneMainMenu extends Phaser.Scene {
@@ -23,27 +25,27 @@ export default class SceneMainMenu extends Phaser.Scene {
     this.btnPlay.setInteractive();
     this.btnPlay.on(
       'pointerover',
-      function () {
+      (this.changeTexture = () => {
         this.btnPlay.setTexture('btnHover');
-      },
+      }),
       this,
     );
     this.btnPlay.on(
       'pointerout',
-      function () {
+      (this.changeTextureAgain = () => {
         this.btnPlay.setTexture('btnPlay');
-      },
+      }),
       this,
     );
     this.btnPlay.on(
       'pointerdown',
-      function () {
+      (this.changeTextureThird = () => {
         playBtnSound.play();
         setTimeout(() => {
           myDiv.innerHTML = '';
           this.scene.start('SceneMain');
         }, 2000);
-      },
+      }),
       this,
     );
 
@@ -63,7 +65,7 @@ export default class SceneMainMenu extends Phaser.Scene {
     this.title.setOrigin(0.5);
 
     this.backgrounds = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 5; i += 1) {
       const bg = new ScrollingBackground(this, 'background', i * 10);
       this.backgrounds.push(bg);
     }

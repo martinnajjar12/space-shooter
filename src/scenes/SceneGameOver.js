@@ -1,10 +1,12 @@
+import Phaser from 'phaser';
 import ScrollingBackground from '../background/ScrollingBackground';
+
 const url = `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${process.env.GAMEID}/scores`;
 const leaderboardDiv = document.querySelector('.leaderboard');
 
 const sortScore = data => {
-  const sortedArray = data.sort((a, b) => b['score'] - a['score']);
-  for (let i = 0; i < 5; i++) {
+  const sortedArray = data.sort((a, b) => b.score - a.score);
+  for (let i = 0; i < 5; i += 1) {
     leaderboardDiv.innerHTML += `<li>${sortedArray[i].user}: ${sortedArray[i].score}</li>`;
   }
 };
@@ -50,28 +52,28 @@ export default class SceneGameOver extends Phaser.Scene {
     this.btnPlay.setInteractive();
     this.btnPlay.on(
       'pointerover',
-      function () {
+      (this.changeTexture = () => {
         this.btnPlay.setTexture('playAgainHover');
-      },
+      }),
       this,
     );
     this.btnPlay.on(
       'pointerout',
-      function () {
+      (this.changeTextureAgain = () => {
         this.btnPlay.setTexture('playAgainBlue');
-      },
+      }),
       this,
     );
     this.btnPlay.on(
       'pointerdown',
-      function () {
+      (this.changeTextureThird = () => {
         bgMusic.stop();
         playBtnSound.play();
         setTimeout(() => {
           leaderboardDiv.innerHTML = '';
           this.scene.start('SceneMain');
         }, 2000);
-      },
+      }),
       this,
     );
 
@@ -101,7 +103,7 @@ export default class SceneGameOver extends Phaser.Scene {
     this.title.setOrigin(0.5);
 
     this.backgrounds = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 5; i += 1) {
       const bg = new ScrollingBackground(this, 'background', i * 10);
       this.backgrounds.push(bg);
     }
