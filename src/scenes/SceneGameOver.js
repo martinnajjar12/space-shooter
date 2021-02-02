@@ -1,4 +1,29 @@
 import ScrollingBackground from '../background/ScrollingBackground';
+const url = `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${process.env.GAMEID}/scores`;
+const leaderboardDiv = document.querySelector('.leaderboard');
+
+const sortScore = data => {
+  const sortedArray = data.sort((a, b) => b['score'] - a['score']);
+  for (let i = 0; i < 5; i++) {
+    leaderboardDiv.innerHTML += `<li>${sortedArray[i].user}: ${sortedArray[i].score}</li>`;
+  }
+};
+
+const refreshLeaderBoard = async () => {
+  try {
+    const resp = await fetch(url, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await resp.json();
+    sortScore(data.result);
+  } catch (err) {
+    leaderboardDiv.innerHTML = `Sorry! Something wrong happened. Error: ${err}`;
+  }
+};
 
 export default class SceneGameOver extends Phaser.Scene {
   constructor() {
@@ -13,6 +38,7 @@ export default class SceneGameOver extends Phaser.Scene {
   }
 
   create() {
+    refreshLeaderBoard();
     const bgMusic = this.sound.add('music');
     bgMusic.play();
     const playBtnSound = this.sound.add('btnAudio');
@@ -42,6 +68,7 @@ export default class SceneGameOver extends Phaser.Scene {
         bgMusic.stop();
         playBtnSound.play();
         setTimeout(() => {
+          leaderboardDiv.innerHTML = '';
           this.scene.start('SceneMain');
         }, 2000);
       },

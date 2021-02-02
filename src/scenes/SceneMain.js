@@ -20,22 +20,6 @@ const setScore = async (name, score) => {
   const data = await res.json();
 };
 
-const refreshLeaderBoard = async () => {
-  try {
-    const resp = await fetch(url, {
-      method: 'GET',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const data = await resp.json();
-    console.log(data);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 export default class SceneMain extends Phaser.Scene {
   constructor() {
     super({ key: 'SceneMain' });
