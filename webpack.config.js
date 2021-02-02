@@ -4,7 +4,7 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    app: './src/index.js',
+    index: ['babel-polyfill', './src/index.js'],
   },
 
   output: {
@@ -15,8 +15,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        include: path.resolve(__dirname, 'src/'),
+        test: /\.m?js$/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {

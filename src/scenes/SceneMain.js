@@ -5,6 +5,37 @@ import GreenShip from '../entities/GreenShip';
 import ScrollingBackground from '../background/ScrollingBackground';
 const inputField = document.querySelector('#utext');
 const scoreDiv = document.querySelector('.scoreDiv');
+const gameId = 'zZK0MQlb98SUyC0GGFHJ';
+const url = `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${gameId}/scores`;
+
+const setScore = async (name, score) => {
+  const params = { user: name, score };
+  const res = await fetch(url, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(params),
+  });
+  const data = await res.json();
+};
+
+const refreshLeaderBoard = async () => {
+  try {
+    const resp = await fetch(url, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await resp.json();
+    console.log(data);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 export default class SceneMain extends Phaser.Scene {
   constructor() {
@@ -31,6 +62,7 @@ export default class SceneMain extends Phaser.Scene {
   create() {
     let sfx = this.sound.add('mars');
     let explosionSound = this.sound.add('explosion');
+    sfx.loop = true;
     sfx.play();
 
     this.anims.create({
@@ -147,6 +179,7 @@ export default class SceneMain extends Phaser.Scene {
           enemy.explode(true);
           explosionSound.play();
           sfx.stop();
+          setScore(this.player.name, this.player.score);
           setTimeout(() => {
             this.scene.start('SceneGameOver');
           }, 1000);
@@ -163,6 +196,7 @@ export default class SceneMain extends Phaser.Scene {
           laser.destroy();
           explosionSound.play();
           sfx.stop();
+          setScore(this.player.name, this.player.score);
           setTimeout(() => {
             this.scene.start('SceneGameOver');
           }, 1000);
@@ -265,5 +299,3 @@ export default class SceneMain extends Phaser.Scene {
     return enemiesArray;
   }
 }
-
-// zZK0MQlb98SUyC0GGFHJ
