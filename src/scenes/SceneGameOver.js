@@ -44,7 +44,7 @@ export default class SceneGameOver extends Phaser.Scene {
     const playBtnSound = this.sound.add('btnAudio');
     this.btnPlay = this.add.sprite(
       this.game.config.width * 0.5,
-      this.game.config.height * 0.5,
+      400,
       'playAgainBlue',
     );
     this.btnPlay.setInteractive();
@@ -82,6 +82,21 @@ export default class SceneGameOver extends Phaser.Scene {
       color: '#ffffff',
       align: 'center',
     });
+    this.title.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
+    this.title.setOrigin(0.5);
+
+    this.title = this.add.text(
+      this.game.config.width * 0.5,
+      200,
+      'Leaderboard',
+      {
+        fontFamily: 'monospace',
+        fontSize: 36,
+        fontStyle: 'bold',
+        color: '#ffffff',
+        align: 'center',
+      },
+    );
     this.title.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
     this.title.setOrigin(0.5);
 

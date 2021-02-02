@@ -2,8 +2,8 @@ import Entity from './Entity';
 import PlayerLaser from './PlayerLaser';
 
 export default class Player extends Entity {
-  constructor(scene, x, y, key, name, score) {
-    super(scene, x, y, key, name, (score = 0), 'Player');
+  constructor(scene, x, y, key, name, score = 0) {
+    super(scene, x, y, key, name, score, 'Player');
     this.name = name;
     this.score = score;
     this.setData('speed', 200);
