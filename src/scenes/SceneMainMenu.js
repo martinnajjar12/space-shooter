@@ -49,6 +49,16 @@ export default class SceneMainMenu extends Phaser.Scene {
       this,
     );
 
+    myDiv.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') {
+        playBtnSound.play();
+        setTimeout(() => {
+          myDiv.innerHTML = '';
+          this.scene.start('SceneMain');
+        }, 2000);
+      }
+    });
+
     this.title = this.add.text(
       this.game.config.width * 0.5,
       128,
