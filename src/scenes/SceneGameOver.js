@@ -1,30 +1,19 @@
 import Phaser from 'phaser';
 import ScrollingBackground from '../background/ScrollingBackground';
+import sortScore from '../util/sortScore';
 
-const url = `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${process.env.GAMEID}/scores`;
 const leaderboardDiv = document.querySelector('.leaderboard');
 
-const sortScore = data => {
-  const sortedArray = data.sort((a, b) => b.score - a.score);
-  for (let i = 0; i < 5; i += 1) {
-    leaderboardDiv.innerHTML += `<li>${sortedArray[i].user}: ${sortedArray[i].score}</li>`;
-  }
-};
-
-const refreshLeaderBoard = async () => {
-  try {
-    const resp = await fetch(url, {
-      method: 'GET',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const data = await resp.json();
-    sortScore(data.result);
-  } catch (err) {
-    leaderboardDiv.innerHTML = `Sorry! Something wrong happened. Error: ${err}`;
-  }
+const printScore = () => {
+  sortScore().then(value => {
+    if (typeof value === 'object') {
+      for (let i = 0; i < 5; i += 1) {
+        leaderboardDiv.innerHTML += `<li>${value[i].user}: ${value[i].score}</li>`;
+      }
+    } else {
+      leaderboardDiv.innerHTML = value;
+    }
+  });
 };
 
 export default class SceneGameOver extends Phaser.Scene {
@@ -40,7 +29,7 @@ export default class SceneGameOver extends Phaser.Scene {
   }
 
   create() {
-    refreshLeaderBoard();
+    printScore();
     const bgMusic = this.sound.add('music');
     bgMusic.play();
     const playBtnSound = this.sound.add('btnAudio');
