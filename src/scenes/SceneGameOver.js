@@ -1,11 +1,11 @@
 import Phaser from 'phaser';
 import ScrollingBackground from '../background/ScrollingBackground';
-import sortScore from '../util/sortScore';
+import sortResult from '../utils/sortResult';
 
 const leaderboardDiv = document.querySelector('.leaderboard');
 
 const printScore = () => {
-  sortScore().then(value => {
+  sortResult().then(value => {
     if (typeof value === 'object') {
       for (let i = 0; i < 5; i += 1) {
         leaderboardDiv.innerHTML += `<li>${value[i].user}: ${value[i].score}</li>`;
