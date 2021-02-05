@@ -1,0 +1,50 @@
+{
+  "name": "space-shooter",
+  "version": "1.0.0",
+  "description": "A web game using Phaser 3 and JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "webpack",
+    "build": "webpack serve --entry ./src/index.js --output-filename ./dist/bundle.js",
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martinnajjar12/space-shooter.git"
+  },
+  "author": "Martin Najjar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/martinnajjar12/space-shooter/issues"
+  },
+  "homepage": "https://github.com/martinnajjar12/space-shooter#readme",
+  "jest": {
+    "setupFiles": [
+      "./setupTests.js",
+      "jest-canvas-mock"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "babel": "^6.23.0",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.2",
+    "babel-polyfill": "^6.26.0",
+    "copy-webpack-plugin": "^7.0.0",
+    "dotenv-webpack": "^6.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "jest": "^26.6.3",
+    "jest-canvas-mock": "^2.3.0",
+    "webpack": "^5.18.0",
+    "webpack-cli": "^4.4.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "phaser": "^3.52.0",
+    "regenerator-runtime": "^0.13.7"
+  }
+}
