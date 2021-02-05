@@ -16,6 +16,7 @@ export default class SceneMainMenu extends Phaser.Scene {
   }
 
   create() {
+    myDiv.style.display = 'block';
     const playBtnSound = this.sound.add('btnAudio');
     this.btnPlay = this.add.sprite(
       this.game.config.width * 0.5,

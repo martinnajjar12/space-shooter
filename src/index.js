@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import SceneMainMenu from './scenes/SceneMainMenu';
 import SceneMain from './scenes/SceneMain';
 import SceneGameOver from './scenes/SceneGameOver';
+import PreloadScene from './scenes/PreloadScene';
 
 const config = {
   type: Phaser.AUTO,
@@ -13,7 +14,7 @@ const config = {
       gravity: { x: 0, y: 0 },
     },
   },
-  scene: [SceneMainMenu, SceneMain, SceneGameOver],
+  scene: [PreloadScene, SceneMainMenu, SceneMain, SceneGameOver],
   pixelArt: true,
   roundPixels: true,
 };
