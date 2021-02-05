@@ -4,6 +4,9 @@ import GreenShip from '../entities/GreenShip';
 import GunShip from '../entities/GunShip';
 import Player from '../entities/Player';
 import ScrollingBackground from '../background/ScrollingBackground';
+import loadBody from '../utils/loader';
+
+loadBody();
 
 const inputField = document.querySelector('#utext');
 const scoreDiv = document.querySelector('.scoreDiv');

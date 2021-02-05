@@ -1,6 +1,9 @@
 import Phaser from 'phaser';
 import ScrollingBackground from '../background/ScrollingBackground';
 import sortResult from '../utils/sortResult';
+import loadBody from '../utils/loader';
+
+loadBody();
 
 const leaderboardDiv = document.querySelector('.leaderboard');
 

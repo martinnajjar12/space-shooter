@@ -1,5 +1,8 @@
 import Phaser from 'phaser';
 import ScrollingBackground from '../background/ScrollingBackground';
+import loadBody from '../utils/loader';
+
+loadBody();
 
 const myDiv = document.querySelector('.textDiv');
 
@@ -49,7 +52,7 @@ export default class SceneMainMenu extends Phaser.Scene {
       this,
     );
 
-    myDiv.addEventListener('keyup', (e) => {
+    myDiv.addEventListener('keyup', e => {
       if (e.key === 'Enter') {
         playBtnSound.play();
         setTimeout(() => {
