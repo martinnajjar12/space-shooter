@@ -1,8 +1,5 @@
 import Phaser from 'phaser';
 import ScrollingBackground from '../background/ScrollingBackground';
-import loadBody from '../utils/loader';
-
-loadBody();
 
 const myDiv = document.querySelector('.textDiv');
 

@@ -4,12 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Space Shooter Game</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
-      crossorigin="anonymous"
-    />
     <style>
       .textDiv {
         position: absolute;
@@ -48,37 +42,16 @@
           sans-serif;
         font-size: large;
       }
-
-      .spinnerDiv {
-        background-color: black;
-        width: 480px;
-        height: 640px;
-      }
-
-      .spinner-grow {
-        position: relative;
-        top: 36%;
-        left: 36%;
-      }
     </style>
   </head>
-  <body class="ps-3">
-    <h1 class="ms-5 mt-2">Space Shooter Game</h1>
+  <body>
+    <h1>Space Shooter Game</h1>
     <div class="textDiv">
       <label for="username">Player Name:</label>
       <input type="text" name="username" id="utext" />
     </div>
     <div class="scoreDiv"></div>
     <ol class="leaderboard"></ol>
-    <div class="spinnerDiv position-absolute">
-      <div
-        class="spinner-grow text-light"
-        style="width: 8rem; height: 8rem"
-        role="status"
-      >
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    </div>
     <script src="app.bundle.js"></script>
   </body>
 </html>
