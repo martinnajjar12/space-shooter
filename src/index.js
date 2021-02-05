@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import SceneMainMenu from './scenes/SceneMainMenu';
 import SceneMain from './scenes/SceneMain';
 import SceneGameOver from './scenes/SceneGameOver';
+import loadBody from './utils/loader';
 
 const config = {
   type: Phaser.AUTO,
@@ -20,3 +21,4 @@ const config = {
 
 const game = () => new Phaser.Game(config);
 game();
+loadBody();
